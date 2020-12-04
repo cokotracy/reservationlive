@@ -1,0 +1,76 @@
+<odoo>
+    <!--form-->
+    <record id="form_mk_reservation_area" model="ir.ui.view">
+        <field name="name">form.mk.reservation.area</field>
+        <field name="model">mk.area</field>
+        <field name="arch" type="xml">
+            <form string="Area Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="floor_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"/>
+                        </group>
+                    </group>
+                    <separator string="Table Details"/>
+                    <field name="table_ids">
+                        <tree string='Tables' editable="bottom">
+                            <field name="name"/>
+                            <field name="shape_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="name"/>
+                                <field name="shape_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"/>
+                            </group>
+                        </form>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--Tree-->
+    <record id="tree_mk_reservation_area" model="ir.ui.view">
+        <field name="name">tree.mk.reservation.area</field>
+        <field name="model">mk.area</field>
+        <field name="arch" type="xml">
+            <tree string="Area Form View">
+                <field name="name"/>
+                <field name="floor_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--search view-->
+    <record id="search_mk_reservation_area" model="ir.ui.view">
+        <field name="name">Area  - Search</field>
+        <field name="model">mk.area</field>
+        <field name="arch" type="xml">
+            <search string="Area Search">
+                <field name="floor_id"/>
+                <group expand="0" string="Group By">
+                    <filter name="floor_id" string="Floor" context="{'group_by':'floor_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--Action-->
+    <record id="action_mk_reservation_area" model="ir.actions.act_window">
+        <field name="name">Area</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mk.area</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--Menus-->
+    <menuitem name="Area"
+              id="actual_menu_reservation_area"
+              parent="main_menu_mk_config"
+              action="action_mk_reservation_area"
+              sequence="1"/>
+</odoo>

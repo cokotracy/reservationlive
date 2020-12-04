@@ -1,0 +1,182 @@
+<odoo>
+    <!--form-->
+    <record id="form_mk_reservation_make" model="ir.ui.view">
+        <field name="name">form.mk.reservation.make</field>
+        <field name="model">mk.make.reservation</field>
+        <field name="arch" type="xml">
+            <form string="Reservation Form View">
+                <header>
+                    <button name="reserve_table" type="object" string="Reserve Table" class="oe_highlight" states="draft"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="e.g. Lunch with Family" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'always_reload': True}" widget="res_partner_many2one"
+                                   context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"/>
+                            <field name="email" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="phone" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="mobile" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="user_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="floor_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="area_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="table_id" options="{'no_create': True, 'no_quick_create': True,  'no_create_edit': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="available_seats"/>
+                            <field name="reservation_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="time_slot_id" options="{'no_create': True, 'no_quick_create': True,  'no_create_edit': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="seats_to_reserve"/>
+                        </group>
+                    </group>
+                    <separator string="Remarks"/>
+                    <field name="remarks" placeholder="Remarks goes here . . ."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--popup-->
+    <record id="form_mk_reservation_make_popup" model="ir.ui.view">
+        <field name="name">form.mk.reservation.make.popup</field>
+        <field name="model">mk.make.reservation</field>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <form string="Reservation Popup Form View">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" default_focus="1" placeholder="e.g. Lunch with Family" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'always_reload': True}" widget="res_partner_many2one"
+                                   context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"/>
+                            <field name="email" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="phone" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="mobile" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="user_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="state" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="floor_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="area_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="table_id" options="{'no_create': True, 'no_quick_create': True,  'no_create_edit': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="available_seats"/>
+                            <field name="reservation_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="time_slot_id" options="{'no_create': True, 'no_quick_create': True,  'no_create_edit': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="seats_to_reserve"/>
+                        </group>
+                    </group>
+                    <separator string="Remarks"/>
+                    <field name="remarks" placeholder="Remarks goes here . . ."/>
+                </sheet>
+                <footer>
+                    <button name="reserve_table" type="object" string="Reserve Table" class="oe_highlight" states="draft"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--Tree-->
+    <record id="tree_mk_reservation_make" model="ir.ui.view">
+        <field name="name">tree.mk.reservation.make</field>
+        <field name="model">mk.make.reservation</field>
+        <field name="arch" type="xml">
+            <tree string="Reservation Tree View">
+                <field name="floor_id"/>
+                <field name="area_id"/>
+                <field name="table_id"/>
+                <field name="user_id"/>
+                <field name="partner_id"/>
+                <field name="mobile"/>
+                <field name="email"/>
+                <field name="reservation_date"/>
+                <field name="time_slot_id"/>
+                <field name="remarks"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--search view-->
+    <record id="search_mk_reservation_make" model="ir.ui.view">
+        <field name="name">Make Reservation - Search</field>
+        <field name="model">mk.make.reservation</field>
+        <field name="arch" type="xml">
+            <search string="Make Reservation Search">
+                <field name="name"/>
+                <field name="floor_id"/>
+                <field name="table_id"/>
+                <field name="user_id"/>
+                <field name="partner_id"/>
+                <field name="area_id"/>
+                <field name="time_slot_id"/>
+                <filter name="state_draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="state_reserved" string="Table Reserved" domain="[('state','=','reserved')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="partner_id" string="Customer" context="{'group_by':'partner_id'}"/>
+                    <filter name="user_id" string="Reserved By" context="{'group_by':'user_id'}"/>
+                    <separator/>
+                    <filter name="floor_id" string="Floor" context="{'group_by':'floor_id'}"/>
+                    <filter name="area_id" string="Area" context="{'group_by':'area_id'}"/>
+                    <filter name="table_id" string="Table" context="{'group_by':'table_id'}"/>
+                    <separator/>
+                    <filter name="time_slot_id" string="Time Slot" context="{'group_by':'time_slot_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <!--Action-->
+    <record id="action_mk_reservation_make" model="ir.actions.act_window">
+        <field name="name">Make Reservation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mk.make.reservation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--Action popup-->
+    <record id="action_mk_reservation_make_popup" model="ir.actions.act_window">
+        <field name="name">Make Reservation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mk.make.reservation</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <!--action binding-->
+    <record model="ir.actions.act_window.view" id="action_make_reservation_default_tree">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="tree_mk_reservation_make"/>
+        <field name="act_window_id" ref="action_mk_reservation_make"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_make_reservation_default_form">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="form_mk_reservation_make"/>
+        <field name="act_window_id" ref="action_mk_reservation_make"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="action_make_reservation_popup">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="form_mk_reservation_make_popup"/>
+        <field name="act_window_id" ref="action_mk_reservation_make_popup"/>
+    </record>
+
+    <!--Menus-->
+    <menuitem name="Make Reservation"
+              id="actual_menu_make_reservation"
+              parent="main_menu_make_reservation"
+              action="action_mk_reservation_make"
+              sequence="1"/>
+</odoo>

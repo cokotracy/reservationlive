@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="website_extended_snippets" inherit_id="website.snippets">
+        <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_header')]" position="before">
+            <div class="o_panel_header">
+                <i class="fa fa-file"></i>
+                Custom Snippets
+            </div>
+            <div class="o_panel_body">
+                <t t-snippet="website_extended.main_flow_snippet"
+                   t-thumbnail="/website/static/src/img/snippets_thumbs/s_cover.svg"/>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="main_flow_snippet" name="Floors">
+        <section class="s_media_list bg-200 pt32 pb32 o_colored_level" data-vcss="001" data-snippet="main_flow_snippet">
+            <div class="container">
+                <div class="row s_nb_column_fixed s_col_no_bgcolor">
+                    <!--                    <div class="col-lg-12 s_media_list_item pt16 pb16">-->
+                    <!--                        <div class="row s_col_no_resize s_col_no_bgcolor no-gutters align-items-center o_cc o_cc1 o_colored_level">-->
+                    <!--                            <div class="col-lg-4 align-self-stretch s_media_list_img_wrapper">-->
+                    <!--                                <img src="/web/image/website.s_media_list_default_image_1"-->
+                    <!--                                     class="s_media_list_img h-100 w-100" alt="" loading="lazy" data-original-id="95"-->
+                    <!--                                     data-original-src="/website/static/src/img/snippets_demo/s_media_list_1.jpg"-->
+                    <!--                                     data-mimetype="image/jpeg"/>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="col-lg-8 s_media_list_body">-->
+                    <!--                                <h3 class="o_default_snippet_text">Media heading</h3>-->
+                    <!--                                <p class="o_default_snippet_text">Use this snippet to build various types of components-->
+                    <!--                                    that feature a left- or right-aligned image alongside textual content. Duplicate the-->
+                    <!--                                    element to create a list that fits your needs.-->
+                    <!--                                </p>-->
+                    <!--                                <a href="#" class="btn btn-primary mb-2 o_default_snippet_text">Discover</a>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="col-lg-12 s_media_list_item pt16 pb16" data-name="Media item">-->
+                    <!--                        <div class="row s_col_no_resize s_col_no_bgcolor no-gutters align-items-center o_cc o_cc1 o_colored_level">-->
+                    <!--                            <div class="col-lg-4 align-self-stretch s_media_list_img_wrapper">-->
+                    <!--                                <img src="/web/image/website.s_media_list_default_image_2"-->
+                    <!--                                     class="s_media_list_img h-100 w-100" alt="" loading="lazy" data-original-id="96"-->
+                    <!--                                     data-original-src="/website/static/src/img/snippets_demo/s_media_list_2.jpg"-->
+                    <!--                                     data-mimetype="image/jpeg"/>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="col-lg-8 s_media_list_body">-->
+                    <!--                                <h3 class="o_default_snippet_text">Event heading</h3>-->
+                    <!--                                <p class="o_default_snippet_text">Speakers from all over the world will join our experts-->
+                    <!--                                    to give inspiring talks on various topics. Stay on top of the latest business-->
+                    <!--                                    management trends &amp;amp; technologies-->
+                    <!--                                </p>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <t t-set="floors" t-value="request.env['mk.floor'].sudo().search([])"/>
+                    <t t-if="floors">
+                        <t t-foreach="floors" t-as="floor">
+                            <div class="col-lg-12 s_media_list_item pt16 pb16" data-name="Media item">
+                                <div class="row s_col_no_resize s_col_no_bgcolor no-gutters align-items-center o_cc o_cc1 o_colored_level">
+                                    <div class="col-lg-4 align-self-stretch s_media_list_img_wrapper">
+                                        <img src="/web/image/website.s_media_list_default_image_3"
+                                             class="s_media_list_img h-100 w-100" alt="" loading="lazy"
+                                             data-original-id="97"
+                                             data-original-src="/website/static/src/img/snippets_demo/s_media_list_3.jpg"
+                                             data-mimetype="image/jpeg"/>
+                                    </div>
+                                    <div class="col-lg-8 s_media_list_body">
+                                        <h3 class="o_default_snippet_text">
+                                            <t t-esc="floor.name"/>
+                                        </h3>
+                                        <p class="o_default_snippet_text">
+                                            Total Areas:
+                                            <t t-esc="len(floor.area_ids)"/>
+                                        </p>
+                                        <a t-att-href="'/floor/%s'%(floor.id)" class="o_default_snippet_text">Open Floor
+                                            <i class="fa fa-long-arrow-right align-middle ml-1"/>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="area_listing" name="Area Listing">
+        <t t-call="website.layout">
+            <section class="s_title pt32 pb32 o_colored_level">
+                <div class="s_allow_columns container">
+                    <h1 style="text-align: center;">
+                        <font style="font-size: 45px;">Floor:
+                            <t t-esc="floor.name"/>
+                        </font>
+                    </h1>
+                    <hr/>
+                    <section class="s_three_columns pt32 pb32 o_colored_level">
+                        <div class="container">
+                            <div class="row d-flex align-items-stretch">
+                                <t t-foreach="floor.area_ids" t-as="area">
+                                    <div class="col-lg-4 s_col_no_bgcolor pt16 pb16">
+                                        <div class="card bg-white h-100">
+<!--                                            <img class="card-img-top"-->
+<!--                                                 src="/web/image/website.s_three_columns_default_image_1" alt=""-->
+<!--                                                 loading="lazy" data-original-id="111"-->
+<!--                                                 data-original-src="/web/image/website.library_image_11"-->
+<!--                                                 data-mimetype="image/jpeg" data-original-title="" title=""-->
+<!--                                                 aria-describedby="tooltip290435"/>-->
+                                            <div class="card-body">
+                                                <h3 class="card-title o_default_snippet_text">
+                                                    <t t-esc="area.name"/>
+                                                </h3>
+                                                <p class="o_default_snippet_text">
+                                                    Available:
+                                                    <t t-esc="len(area.table_ids.filtered(lambda x: x.state == 'available'))"/>
+                                                    <br/>
+                                                    Reserved:
+                                                    <t t-esc="len(area.table_ids.filtered(lambda x: x.state == 'reserved'))"/>
+                                                    <br/>
+                                                    Cleaning In Progress:
+                                                    <t t-esc="len(area.table_ids.filtered(lambda x: x.state == 'cleaning'))"/>
+                                                    <br/>
+                                                    Total Tables:
+                                                    <t t-esc="len(area.table_ids)"/>
+                                                    <br/>
+
+                                                </p>
+                                                <a t-att-href="'/area/%s'%(area.id)" class="o_default_snippet_text">
+                                                    Open Tables
+                                                    <i class="fa fa-long-arrow-right align-middle ml-1"/>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </t>
+    </template>
+
+    <template id="table_listing" name="Table Listing">
+        <t t-call="website.layout">
+            <section class="s_title pt32 pb32 o_colored_level">
+                <div class="s_allow_columns container">
+                    <h1 style="text-align: center;">
+                        <font style="font-size: 45px;">Area:
+                            <t t-esc="area.name"/>
+                        </font>
+                    </h1>
+                    <hr/>
+                    <section class="s_three_columns pt32 pb32 o_colored_level">
+                        <div class="container">
+                            <div class="row d-flex align-items-stretch">
+                                <t t-foreach="area.table_ids" t-as="table">
+                                    <div class="col-lg-4 s_col_no_bgcolor pt16 pb16">
+                                        <div class="card bg-white h-100">
+                                            <!--                                            <img class="card-img-top"-->
+                                            <!--                                                 src="/web/image/website.s_three_columns_default_image_1" alt=""-->
+                                            <!--                                                 loading="lazy" data-original-id="111"-->
+                                            <!--                                                 data-original-src="/web/image/website.library_image_11"-->
+                                            <!--                                                 data-mimetype="image/jpeg" data-original-title="" title=""-->
+                                            <!--                                                 aria-describedby="tooltip290435"/>-->
+                                            <div class="card-body">
+                                                <h3 class="card-title o_default_snippet_text">
+                                                    <t t-esc="table.name"/>
+                                                </h3>
+                                                <span t-if="table.state=='available'" class="badge badge-success">Available</span>
+                                                <span t-if="table.state=='reserved'" class="badge badge-danger">Reserved</span>
+                                                <span t-if="table.state=='cleaning'" class="badge badge-warning">Cleaning In Progress</span>
+                                                <!--                                                <p class="o_default_snippet_text">-->
+                                                <!--                                                    Available:-->
+                                                <!--                                                    <t t-esc="len(area.table_ids.filtered(lambda x: x.state == 'available'))"/>-->
+                                                <!--                                                    <br/>-->
+                                                <!--                                                    Reserved:-->
+                                                <!--                                                    <t t-esc="len(area.table_ids.filtered(lambda x: x.state == 'reserved'))"/>-->
+                                                <!--                                                    <br/>-->
+                                                <!--                                                    Cleaning In Progress:-->
+                                                <!--                                                    <t t-esc="len(area.table_ids.filtered(lambda x: x.state == 'cleaning'))"/>-->
+                                                <!--                                                    <br/>-->
+                                                <!--                                                    Total Tables:-->
+                                                <!--                                                    <t t-esc="len(area.table_ids)"/>-->
+                                                <!--                                                    <br/>-->
+
+                                                <!--                                                </p>-->
+<!--                                                <a t-att-href="'/area/%s'%(area.id)" class="o_default_snippet_text">-->
+<!--                                                    Open Tables-->
+<!--                                                    <i class="fa fa-long-arrow-right align-middle ml-1"/>-->
+<!--                                                </a>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </t>
+    </template>
+
+</odoo>

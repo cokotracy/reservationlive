@@ -1,0 +1,32 @@
+<odoo>
+    <record id="form_mk_clean_table_popup" model="ir.ui.view">
+        <field name="name">form.mk.clean.table.popup</field>
+        <field name="model">clean.tables</field>
+        <field name="arch" type="xml">
+            <form string="Cleaning Tables">
+                <separator string="Select Tables to Cleaning"/>
+                <field name="table_ids"/>
+                <footer>
+                    <button name="clean_selected_tables" string="Cleaning Tables" type="object" class="oe_highlight"/>
+                    <button string="Close Window" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_mk_clean_table_popup" model="ir.actions.act_window">
+        <field name="name">Cleaning Tables</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clean.tables</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="form_mk_clean_table_popup"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem name="Cleaning Tables"
+              id="actual_menu_clean_tables"
+              parent="main_menu_clean_tables"
+              action="action_mk_clean_table_popup"
+              sequence="1"/>
+</odoo>

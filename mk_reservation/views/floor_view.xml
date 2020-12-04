@@ -1,0 +1,56 @@
+<odoo>
+    <!--form-->
+    <record id="form_mk_reservation_floor" model="ir.ui.view">
+        <field name="name">form.mk.reservation.floor</field>
+        <field name="model">mk.floor</field>
+        <field name="arch" type="xml">
+            <form string="Floor Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group></group>
+                    </group>
+                    <separator string="Area Details"/>
+                    <field name="area_ids">
+                        <tree string='Areas' editable="bottom">
+                            <field name="name"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </form>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--Tree-->
+    <record id="tree_mk_reservation_floor" model="ir.ui.view">
+        <field name="name">tree.mk.reservation.floor</field>
+        <field name="model">mk.floor</field>
+        <field name="arch" type="xml">
+            <tree string="Floor Tree View">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Action-->
+    <record id="action_mk_reservation_floor" model="ir.actions.act_window">
+        <field name="name">Floor</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mk.floor</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--Menus-->
+    <menuitem name="Floor"
+              id="actual_menu_reservation_floor"
+              parent="main_menu_mk_config"
+              action="action_mk_reservation_floor"
+              sequence="0"/>
+</odoo>

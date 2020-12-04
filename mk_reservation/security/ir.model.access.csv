@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_mk_floor,Reservation Floor,model_mk_floor,base.group_user,1,1,1,1
+access_mk_area,Reservation Area,model_mk_area,base.group_user,1,1,1,1
+access_mk_table,Reservation Table,model_mk_table,base.group_user,1,1,1,1
+access_mk_make_reservation,Reservation,model_mk_make_reservation,base.group_user,1,1,1,1
+access_clean_tables,Clean Table PopUp,model_clean_tables,base.group_user,1,1,1,1
+access_mk_time_slot,Time Slot,model_mk_time_slot,base.group_user,1,1,1,1
+access_mk_table_shape,Table Shape,model_mk_table_shape,base.group_user,1,1,1,1

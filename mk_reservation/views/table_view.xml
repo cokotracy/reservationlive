@@ -1,0 +1,150 @@
+<odoo>
+    <!--form-->
+    <record id="form_mk_reservation_table" model="ir.ui.view">
+        <field name="name">form.mk.reservation.table</field>
+        <field name="model">mk.table</field>
+        <field name="arch" type="xml">
+            <form string="Table Form View">
+                <header>
+                    <button name="make_table_available" type="object" class="oe_highlight" string="Open" states="reserved,cleaning"/>
+                    <button name="clean_table" type="object" class="oe_highlight" string="Cleaning Table" states="reserved"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="seats"/>
+                            <field name="shape_id" options="{'no_create': True, 'no_quick_create': True, 'no_create_edit': True}"/>
+                        </group>
+                        <group>
+                            <field name="area_id" readonly="1"/>
+                            <field name="floor_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Reservation Details">
+                            <field name="reservation_ids" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--Tree-->
+    <record id="tree_mk_reservation_table" model="ir.ui.view">
+        <field name="name">tree.mk.reservation.table</field>
+        <field name="model">mk.table</field>
+        <field name="arch" type="xml">
+            <tree string="Table Form View" decoration-danger="state=='reserved'" decoration-warning="state=='cleaning'" decoration-success="state=='available'">
+                <field name="name"/>
+                <field name="shape_id"/>
+                <field name="floor_id"/>
+                <field name="area_id"/>
+                <field name="seats"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--kanban view-->
+    <record id="kanban_mk_reservation_table" model="ir.ui.view">
+        <field name="name">kanban.mk.reservation.table</field>
+        <field name="model">mk.table</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column" archivable="false" quick_create="false" group_edit="false" group_delete="false" group_create="false" create="false">
+                <field name="floor_id"/>
+                <field name="area_id"/>
+                <field name="color"/>
+                <field name="name"/>
+                <field name="shape_id"/>
+                <field name="state"/>
+                <field name="seats"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''} oe_kanban_global_click">
+                            <div class="o_dropdown_kanban dropdown">
+                                <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                    <span class="fa fa-ellipsis-v"/>
+                                </a>
+                                <div class="dropdown-menu" role="menu">
+                                    <t t-if="widget.editable">
+                                        <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                    </t>
+                                    <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_title">
+                                    <h4>
+                                        <field name="name"/>
+                                    </h4>
+                                </div>
+                                <div class="o_kanban_record_title">
+                                    <strong>Floor :</strong>
+                                    <field name="floor_id"/>
+                                    <br/>
+                                    <strong>Area :</strong>
+                                    <field name="area_id"/>
+                                    <br/>
+                                    <strong>Seats :</strong>
+                                    <field name="seats"/>
+                                </div>
+                                <div class="oe_clear"/>
+                            </div>
+                            <div style="margin-top:5px;" attrs="{'invisible': [('state', '=', 'reserved')]}">
+                                <a type="button">
+                                    <button string="Make Reservation" name="make_reservation_from_kanban" type="object" >
+                                        <span>Make Reservation</span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!--search view-->
+    <record id="search_mk_reservation_table" model="ir.ui.view">
+        <field name="name">Reservation Table - Search</field>
+        <field name="model">mk.table</field>
+        <field name="arch" type="xml">
+            <search string="Table Search">
+                <field name="name"/>
+                <field name="floor_id"/>
+                <field name="area_id"/>
+                <field name="shape_id"/>
+                <filter name="state_reserved" string="Reserved" domain="[('state','=','reserved')]"/>
+                <filter name="state_cleaning" string="Cleaning In Progress" domain="[('state','=','cleaning')]"/>
+                <filter name="state_available" string="Open" domain="[('state','=','available')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="floor_id" string="Floor" context="{'group_by':'floor_id'}"/>
+                    <filter name="area_id" string="Area" context="{'group_by':'area_id'}"/>
+                    <filter name="shape_id" string="Shape" context="{'group_by':'shape_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <!--Action-->
+    <record id="action_mk_reservation_table" model="ir.actions.act_window">
+        <field name="name">Table</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mk.table</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <!--Menus-->
+    <menuitem name="Table"
+              id="actual_menu_reservation_table"
+              parent="main_menu_reservation"
+              action="action_mk_reservation_table"
+              sequence="0"/>
+</odoo>

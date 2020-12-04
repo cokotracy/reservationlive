@@ -1,0 +1,49 @@
+<odoo>
+    <!--form-->
+    <record id="form_mk_time_slot" model="ir.ui.view">
+        <field name="name">form.mk.time.slot</field>
+        <field name="model">mk.time.slot</field>
+        <field name="arch" type="xml">
+            <form string="Time Slot Form View">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="time_from" widget="float_time" />
+                            <field name="time_to" widget="float_time" />
+                        </group>
+                        <group></group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--Tree-->
+    <record id="tree_mk_time_slot" model="ir.ui.view">
+        <field name="name">tree.mk.time.slot</field>
+        <field name="model">mk.time.slot</field>
+        <field name="arch" type="xml">
+            <tree string="Time Slot Tree View">
+                <field name="name"/>
+                <field name="time_from"/>
+                <field name="time_to"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Action-->
+    <record id="action_mk_time_slot" model="ir.actions.act_window">
+        <field name="name">Time Slot</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mk.time.slot</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--Menus-->
+    <menuitem name="Time Slot"
+              id="actual_menu_time_slot"
+              parent="main_menu_mk_config"
+              action="action_mk_time_slot"
+              sequence="3"/>
+</odoo>

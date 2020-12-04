@@ -1,0 +1,25 @@
+<odoo>
+ 	<menuitem name="Reservation"
+              id="root_menu_reservation"
+              sequence="1"/>
+
+ 	<menuitem name="Dashboard"
+              id="main_menu_reservation"
+              parent="root_menu_reservation"
+              sequence="0"/>
+
+ 	<menuitem name="Make Reservation"
+              id="main_menu_make_reservation"
+              parent="root_menu_reservation"
+              sequence="1"/>
+
+ 	<menuitem name="Cleaning Tables"
+              id="main_menu_clean_tables"
+              parent="root_menu_reservation"
+              sequence="2"/>
+
+ 	<menuitem name="Configuration"
+              id="main_menu_mk_config"
+              parent="root_menu_reservation"
+              sequence="3"/>
+</odoo>
